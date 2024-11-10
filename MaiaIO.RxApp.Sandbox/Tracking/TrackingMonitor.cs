@@ -1,4 +1,4 @@
-﻿namespace MaiaIO.RxApp.Sandbox
+﻿namespace MaiaIO.RxApp.Sandbox.Tracking
 {
     public class TrackingMonitor : IObserver<TrackingInfo>
     {
@@ -35,8 +35,8 @@
 
         public void OnNext(TrackingInfo value)
         {
-           bool updated = false;
-           var(origem, destino, pedido) = value;
+            bool updated = false;
+            var (origem, destino, pedido) = value;
             Console.WriteLine($"{origem} - {destino} - {pedido}");
 
         }

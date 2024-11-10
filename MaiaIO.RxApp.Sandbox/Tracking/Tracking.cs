@@ -1,4 +1,4 @@
-﻿namespace MaiaIO.RxApp.Sandbox
+﻿namespace MaiaIO.RxApp.Sandbox.Tracking
 {
 
     public readonly record struct TrackingInfo(
@@ -8,7 +8,7 @@
     );
 
 
-    public sealed class Trackinghandler: IObservable<TrackingInfo>
+    public sealed class Trackinghandler : IObservable<TrackingInfo>
     {
 
         public readonly HashSet<IObserver<TrackingInfo>> _observers = new();
@@ -17,7 +17,7 @@
 
         public IDisposable Subscribe(IObserver<TrackingInfo> observer)
         {
-            if( _observers.Add(observer))
+            if (_observers.Add(observer))
             {
                 foreach (var item in _transports)
                 {
@@ -34,11 +34,11 @@
 
         public void TrackignStatus(int unidadeOrigem, int unidadeDestino, Guid uidPedido)
         {
-            var info = new TrackingInfo((int) unidadeOrigem, (int) unidadeDestino, uidPedido);
+            var info = new TrackingInfo(unidadeOrigem, unidadeDestino, uidPedido);
 
-            if( _transports.Add(info))
+            if (_transports.Add(info))
             {
-                foreach(IObserver<TrackingInfo> observer in _observers)
+                foreach (IObserver<TrackingInfo> observer in _observers)
                 {
                     observer.OnNext(info);
                 }
